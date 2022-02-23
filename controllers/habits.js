@@ -1,4 +1,4 @@
-const Habit = require("../models/Habit");
+const Habit = require("../api/models/Habit");
 
 async function show(req, res) {
   try {

@@ -1,4 +1,4 @@
-const db = require("../dbConfig/init");
+const db = require("../../dbConfig/init");
 
 const findSubhabits = (habit_id) => {
   return new Promise(async (resolve, reject) => {
