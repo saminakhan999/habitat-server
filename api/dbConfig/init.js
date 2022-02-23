@@ -1,3 +1,9 @@
+
+
+
+https://habitat-server-api.herokuapp.com/
+
+
 const { Pool } = require("pg");
 
 
@@ -16,3 +22,4 @@ if(process.env.DATABASE_URL){
 const pool = new Pool(config);
 
 module.exports = pool;
+
