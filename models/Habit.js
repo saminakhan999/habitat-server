@@ -2,7 +2,7 @@ const db = require("../dbConfig/init");
 const {
   findSubhabits,
   findFrequency,
-  frequencyDuplicates
+  frequencyDuplicates,
 } = require("./helpers");
 
 module.exports = class Habit {
@@ -47,7 +47,7 @@ module.exports = class Habit {
       try {
         // get all habit data matching that user id
         let habitData = await db.query(`SELECT * FROM habits WHERE id = $1;`, [
-          id
+          id,
         ]);
         habitData = habitData.rows[0];
         // get the subhabits that match the habit id
@@ -120,7 +120,7 @@ module.exports = class Habit {
       try {
         const { name, frequency, subhabits, complete, streak } = data;
         if (name) this.name = name;
-        if (streak) this.streak = streak;
+        if (streak || streak === 0) this.streak = streak;
         if (complete) this.complete = Date.now();
         if (complete === "100") this.complete = 0;
         if (frequency) this.frequency = frequency;
@@ -129,7 +129,7 @@ module.exports = class Habit {
         // Delete any existing subhabits then create new ones
         if (subhabits) {
           await db.query(`DELETE FROM subhabits WHERE habit_id = $1;`, [
-            this.habitId
+            this.habitId,
           ]);
           for (let subhabit of subhabits) {
             try {
